@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -35,6 +35,15 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ x: 207, y: 660 })
+      });
+     
+    }
+
+    function startClick2() {
+      fetch('http://localhost:5000/api/double-click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ x: 172, y: 731 })
       });
      
     }
@@ -92,6 +101,7 @@
 
           btn.addEventListener("click", () => {
             setTimeout(() => startClick(), 2000);
+            setTimeout(() => startClick2(), 3000);
             setTimeout(() => startAutoClick(), 10000);
           });
 
