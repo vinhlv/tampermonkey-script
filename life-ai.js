@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      20260211-02
+// @version      20260211-03
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
@@ -13,7 +13,6 @@
 
 (function() {
     'use strict';
-    alert('LifeAI script running');
     let isReply = false;
     let doReply = false;
     let isPost = false;
