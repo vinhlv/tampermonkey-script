@@ -36,6 +36,11 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ x: 207, y: 650 })
       });
+      fetch('http://localhost:5000/api/double-click', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ x: 207, y: 680 })
+      });
     }
 
     /* ================= CANVAS CHECK ================= */
