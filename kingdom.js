@@ -695,22 +695,37 @@
     }
   }
 
-  setInterval(async () => {
-    console.log('autoKillMonster:', autoKillMonster );
-    console.log('save position:', currentPosition );
-    console.log('currentPosition:', document.querySelector('.player-info__position span').innerText );
+  let isGettingCharacter = false;
+  let lastCharacterCheck = 0;
+
+  const mainInterval = setInterval(async () => {
+    // Tránh API calls stack up
+    if (isGettingCharacter) return;
+    
+    console.log('autoKillMonster:', autoKillMonster);
+    console.log('save position:', currentPosition);
+    console.log('currentPosition:', document.querySelector('.player-info__position span').innerText);
+    
     if (autoKillMonster && !isHome() && document.querySelector('.player-info__position span').innerText == currentPosition) {
-      console.log('Arrived at target position, start collecting monster item:', monsterName );
-      setAutoCollectMonsterItem(monsterName);
+      console.log('Arrived at target position, start collecting monster item:', monsterName);
+      await setAutoCollectMonsterItem(monsterName);
     }
+    
     if ((!autoContribute && !autoKillMonster) || !isHome()) return;
-    if (autoContribute) {
-      await getToolList();
+    
+    isGettingCharacter = true;
+    try {
+      if (autoContribute) {
+        await getToolList();
+      }
+      await getCharacter();
+    } finally {
+      isGettingCharacter = false;
+      lastCharacterCheck = Date.now();
     }
-    await getCharacter();
   }, 15000);
 
-  const huntButtonsTracked = new Set();
+  const huntButtonsTracked = new Map();
 
   function setupHuntButtonsListener() {
     const huntButtons = Array.from(document.querySelectorAll('.btn--small.btn--medium')).filter(btn => 
@@ -719,20 +734,31 @@
 
     huntButtons.forEach((btn) => {
       if (!huntButtonsTracked.has(btn)) {
-        huntButtonsTracked.add(btn);
-        btn.addEventListener('click', async function(e) {
+        const clickHandler = async function(e) {
           const listCard = btn.closest('.list-card');
           const nameElement = listCard?.querySelector('.list-card__name');
           const nameMonster = nameElement?.textContent.trim();
           console.log('Click thành công! Monster name:', nameMonster);
           await setAutoCollectMonsterItem(nameMonster);
-        }, { once: true });
+        };
+        
+        huntButtonsTracked.set(btn, clickHandler);
+        btn.addEventListener('click', clickHandler, { once: true });
       }
     });
+
+    // Clean up dead references (nếu button bị remove khỏi DOM)
+    if (huntButtonsTracked.size > 50) {
+      for (const [btn, handler] of huntButtonsTracked) {
+        if (!document.contains(btn)) {
+          huntButtonsTracked.delete(btn);
+        }
+      }
+    }
   }
 
   setupHuntButtonsListener();
-  setInterval(setupHuntButtonsListener, 5000);
+  const huntInterval = setInterval(setupHuntButtonsListener, 10000);
 
     /*setInterval(() => {
         const btn = Array.from(document.querySelectorAll('div.btn'))
