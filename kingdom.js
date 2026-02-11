@@ -13,9 +13,20 @@
 
 (function() {
     'use strict';
+  const playerDataByWallet = {
+    "0x25833b16a7caa9b12c95b430c671e38b173c0ced1b304c1c232e440b5fb07ada": { 
+      playerID: "98410",//main
+      autoAsh: false,
+    },
+    "0x87e6746f66cdd0ff3d9d565265f2cfbd6f6b5e03446469d6609b26bcd4047252": {
+      playerID: "98809",//appca
+      autoAsh: false,
+    },
+  };
+  const sessionWallet = localStorage.getItem('session-wallet');
 
-  let playerID = "102758"
-  let autoAsh = false;
+  let playerID = playerDataByWallet[sessionWallet]?.playerID || "";
+  let autoAsh = playerDataByWallet[sessionWallet]?.autoAsh || false;
 
   let autoContribute = false;
   let autoKillMonster = false;
