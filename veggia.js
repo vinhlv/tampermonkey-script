@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      20260211-03
+// @version      20260211-04
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -34,13 +34,9 @@
       fetch('http://localhost:5000/api/double-click', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ x: 207, y: 650 })
+          body: JSON.stringify({ x: 207, y: 660 })
       });
-      fetch('http://localhost:5000/api/double-click', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ x: 207, y: 680 })
-      });
+     
     }
 
     /* ================= CANVAS CHECK ================= */
