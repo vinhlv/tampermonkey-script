@@ -36,7 +36,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ x: 207, y: 660 })
       });
-     
+
     }
 
     function startClick2() {
@@ -45,7 +45,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ x: 172, y: 731 })
       });
-     
+
     }
 
     /* ================= CANVAS CHECK ================= */
@@ -102,7 +102,7 @@
           btn.addEventListener("click", () => {
             setTimeout(() => startClick(), 2000);
             setTimeout(() => startClick2(), 3000);
-            setTimeout(() => startAutoClick(), 10000);
+            setTimeout(() => startAutoClick(), 15000);
           });
 
           // auto mode
