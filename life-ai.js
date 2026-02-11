@@ -2,8 +2,8 @@
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
 // @version      20260211-01
-// @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js?token=GHSAT0AAAAAADVI2K4XZ2WZXKXJTAGUKZV62MMGJIA
-// @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js?token=GHSAT0AAAAAADVI2K4XZ2WZXKXJTAGUKZV62MMGJIA
+// @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
+// @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
 // @author       You
 // @match        https://testnet.lifeai.io/*
