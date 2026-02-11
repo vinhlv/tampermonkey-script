@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kingdom
 // @namespace    http://tampermonkey.net/
-// @version      2025-10-20
+// @version      20260211-01
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/kingdom.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/kingdom.js
 // @description  try to take over the world!
