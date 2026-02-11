@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      20260211-04
+// @version      20260211-05
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
@@ -108,5 +108,5 @@
 
     scheduleScan(0);
     setInterval(scanDom, 5000);
-    console.log('LifeAI script started');
+    console.log('LifeAI script started ver 20260211-05');
 })();
