@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      20260211-02
+// @version      20260211-03
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -113,7 +113,6 @@
           if (handledImages.has(img)) return;
           handledImages.add(img);
           img.addEventListener("click", () => {
-            console.log("Super Caps clicked, starting auto mode...");
             isAuto = true;
           });
         });
