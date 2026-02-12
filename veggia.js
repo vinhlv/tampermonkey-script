@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -34,7 +34,7 @@
       fetch('http://localhost:5000/api/double-click', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ x: 207, y: 660 })
+          body: JSON.stringify({ x: 207, y: 640 })
       });
 
     }
