@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Kingdom
 // @namespace    http://tampermonkey.net/
-// @version      20260211-01
+// @version      1.0
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/kingdom.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/kingdom.js
 // @description  try to take over the world!
@@ -20,6 +20,18 @@
     },
     "0x87e6746f66cdd0ff3d9d565265f2cfbd6f6b5e03446469d6609b26bcd4047252": {
       playerID: "98809",//appca
+      autoAsh: false,
+    },
+    "0x1aa0eb1a3912f186fc9ec16f20c20eb1d00c033361710c28ce29e0c0aec15242": {
+      playerID: "98816",//appjp
+      autoAsh: false,
+    },
+    "0x9a0637f15fc8da30db1b97578acce97cf1c2ac0b445ea3031e76723b55341ed1": {
+      playerID: "98822",//appkl
+      autoAsh: false,
+    },
+    "0x67451217231e0c5e95c7202842b50a744882e89989c3a9b85aa8d34c49c28dc1": {
+      playerID: "102757",//appkr
       autoAsh: false,
     },
   };
