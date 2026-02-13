@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.5
+// @version      1.6
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -13,8 +13,9 @@
 
 (function() {
     'use strict';
-    let isAuto = false;
+    let isAuto = localStorage.getItem('veggia_auto_mode') === 'true';
     let isClick = false;
+    let clickCount = 0;
     const handledButtons = new WeakSet();
     const handledImages = new WeakSet();
 
@@ -100,6 +101,14 @@
           handledButtons.add(btn);
 
           btn.addEventListener("click", () => {
+            clickCount++;
+            console.log('Click count:', clickCount);
+            
+            if (clickCount >= 15) {
+              setTimeout(() => location.reload(), 1000);
+              return;
+            }
+            
             setTimeout(() => startClick(), 2000);
             setTimeout(() => startClick2(), 3000);
             setTimeout(() => startAutoClick(), 13000);
@@ -120,6 +129,7 @@
           handledImages.add(img);
           img.addEventListener("click", () => {
             isAuto = true;
+            localStorage.setItem('veggia_auto_mode', 'true');
           });
         });
         console.log("DOM changes processed. Auto mode:", isAuto);
