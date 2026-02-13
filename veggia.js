@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.4
+// @version      1.5
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -80,7 +80,7 @@
         continueButtons.forEach(btn => {
           if (handledButtons.has(btn)) return;
           handledButtons.add(btn);
-          setTimeout(() => btn.click(), 2000);
+          setTimeout(() => btn.click(), 4000);
         });
 
         /* ---- Stop ---- */
@@ -102,7 +102,7 @@
           btn.addEventListener("click", () => {
             setTimeout(() => startClick(), 2000);
             setTimeout(() => startClick2(), 3000);
-            setTimeout(() => startAutoClick(), 15000);
+            setTimeout(() => startAutoClick(), 13000);
           });
 
           // auto mode
