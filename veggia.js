@@ -75,6 +75,7 @@
     /* ================= DOM OBSERVER ================= */
 
     function processDomChanges() {
+        document.querySelectorAll("button")[6]?.click();
         /* ---- Continue ---- */
         const continueButtons = [...document.querySelectorAll("button")]
           .filter(b => /continue/i.test(b.innerText));
@@ -104,7 +105,7 @@
             clickCount++;
             console.log('Click count:', clickCount);
             
-            if (clickCount >= 5) {
+            if (clickCount >= 10) {
               setTimeout(() => location.reload(), 1000);
               return;
             }
