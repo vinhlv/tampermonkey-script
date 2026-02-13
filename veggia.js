@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.6
+// @version      1.7
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -104,7 +104,7 @@
             clickCount++;
             console.log('Click count:', clickCount);
             
-            if (clickCount >= 15) {
+            if (clickCount >= 5) {
               setTimeout(() => location.reload(), 1000);
               return;
             }
