@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.7
+// @version      1.8
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -145,5 +145,12 @@
         childList: true,
         subtree: true
     });
+    /*
+    const claimButtons = [...document.querySelectorAll("button")]
+          .filter(b => /claim/i.test(b.innerText));
+    setInterval(() => {
+        claimButtons[0].click()
+    }, 2000);
+    */
 
 })();
