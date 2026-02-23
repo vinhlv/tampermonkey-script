@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Veggia
 // @namespace    http://tampermonkey.net/
-// @version      1.8
+// @version      1.9
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/veggia.js
 // @description  try to take over the world!
@@ -105,14 +105,14 @@
             clickCount++;
             console.log('Click count:', clickCount);
             
-            if (clickCount >= 10) {
+            if (clickCount >= 6) {
               setTimeout(() => location.reload(), 1000);
               return;
             }
             
             setTimeout(() => startClick(), 2000);
             setTimeout(() => startClick2(), 3000);
-            setTimeout(() => startAutoClick(), 13000);
+            setTimeout(() => startAutoClick(), 20000);
           });
 
           // auto mode
@@ -145,12 +145,12 @@
         childList: true,
         subtree: true
     });
-    /*
-    const claimButtons = [...document.querySelectorAll("button")]
-          .filter(b => /claim/i.test(b.innerText));
-    setInterval(() => {
-        claimButtons[0].click()
-    }, 2000);
-    */
 
 })();
+/*
+const claimButtons = [...document.querySelectorAll("button")]
+      .filter(b => /claim/i.test(b.innerText));
+setInterval(() => {
+    claimButtons[0].click()
+}, 2000);
+*/
