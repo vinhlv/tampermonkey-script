@@ -13,7 +13,6 @@
 
 (function() {
     'use strict';
-    let finishText = "Your comment has been posted and recorded on-chain!";
     let isScanning = false;
 
     function setAction(value) {
