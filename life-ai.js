@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      v1.12
+// @version      v1.13
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
@@ -66,24 +66,24 @@
       });
       if (assetsButton) {
         const buttonText = assetsButton.textContent?.trim() || 'No text found';
-        unsafeWindow.console.log('[LifeAI] Assets button text: ' + buttonText);
+        console.log('[LifeAI] Assets button text: ' + buttonText);
         
         const commaCount = (buttonText.match(/,/g) || []).length;        
         return commaCount === 2;
       } else {
-        unsafeWindow.console.log('[LifeAI] Assets button not found');
+        console.log('[LifeAI] Assets button not found');
         return false;
       }
     }
 
     async function scanDom() {
       const action = getAction();
-      unsafeWindow.console.log('[LifeAI] Action:', action, 'isScanning:', isScanning);
+      console.log('[LifeAI] Action:', action, 'isScanning:', isScanning);
       if (isScanning) return;
       isScanning = true;
 
       if (!action && window.location.href === 'https://testnet.lifeai.io/vi') {
-        unsafeWindow.console.log('[LifeAI] No action on home, navigating to quests...');
+        console.log('[LifeAI] No action on home, navigating to quests...');
         isScanning = false;
         goToQuest();
         return;
@@ -96,21 +96,21 @@
       });
 
       if (action === 'login' && !loginButton) {
-        unsafeWindow.console.log('[LifeAI] login Success...');
+        console.log('[LifeAI] login Success...');
         setAction('');
         await sleep(2000);
         goToQuest();
       }
       
       if (loginButton) {
-        unsafeWindow.console.log('[LifeAI] Found Log in/Sign up button, clicking...');
+        console.log('[LifeAI] Found Log in/Sign up button, clicking...');
         loginButton.click();
         setAction('login');
         
         await sleep(1000);
         const loginMethodButton = document.querySelector('.login-method-button');
         if (loginMethodButton) {
-          unsafeWindow.console.log('[LifeAI] Found login method button, clicking...');
+          console.log('[LifeAI] Found login method button, clicking...');
           loginMethodButton.click();
         }
       }
@@ -121,7 +121,7 @@
         return spanText === 'Reward' && btn.classList.contains('border-[#4ADE80]') && btn.classList.contains('red-reward');
       });
       if (action === 'claim' && rewardButton) {
-        unsafeWindow.console.log('[LifeAI] Found Reward button with red-reward class, clicking...');
+        console.log('[LifeAI] Found Reward button with red-reward class, clicking...');
         rewardButton.click();
         
         await sleep(1000);
@@ -129,7 +129,7 @@
           return btn.textContent?.includes('Epoch Rewards') && btn.classList.contains('hover:text-[#57BA46]');
         });
         if (epochRewardsButton) {
-          unsafeWindow.console.log('[LifeAI] Found Epoch Rewards button, clicking...');
+          console.log('[LifeAI] Found Epoch Rewards button, clicking...');
           epochRewardsButton.click();
           
           await sleep(1000);
@@ -140,7 +140,7 @@
           if (rewardDiv) {
             const rewardValueSpan = rewardDiv.querySelector('span.text-\\[\\#57BA46\\]');
             const rewardValue = parseFloat(rewardValueSpan?.textContent || '0');
-            unsafeWindow.console.log('[LifeAI] Reward value: ' + rewardValue);
+            console.log('[LifeAI] Reward value: ' + rewardValue);
             
             if (rewardValue > 0) {
               const claimAllButton = Array.from(document.querySelectorAll('button')).find(btn => {
@@ -153,11 +153,11 @@
                 await sleep(1000);
                 goToQuest();
               } else {
-                unsafeWindow.console.log('Claim All button not found or disabled, navigating to quests');
+                console.log('Claim All button not found or disabled, navigating to quests');
               }
             } else {
               clickCloseButton();
-              unsafeWindow.console.log('No rewards to claim, navigating to quests');
+              console.log('No rewards to claim, navigating to quests');
             }
           }
         } 
@@ -180,7 +180,7 @@
         });
         
         if (maxButton && !maxButton.disabled) {
-          unsafeWindow.console.log('[LifeAI] Found Max button, clicking...');
+          console.log('[LifeAI] Found Max button, clicking...');
           maxButton.click();
         }
         await sleep(2000);
@@ -191,7 +191,7 @@
         });
         
         if (stakeButton && !stakeButton.disabled) {
-          unsafeWindow.console.log('[LifeAI] Found STAKE button, clicking...');
+          console.log('[LifeAI] Found STAKE button, clicking...');
           stakeButton.click();
           await sleep(5000);
         }
