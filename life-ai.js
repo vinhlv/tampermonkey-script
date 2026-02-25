@@ -79,18 +79,18 @@ async function scanDom() {
   if (isScanning) return;
   isScanning = true;
 
-  if (!action && window.location.href === 'https://testnet.lifeai.io/vi') {
-    console.log('[LifeAI] No action on home, navigating to quests...');
-    isScanning = false;
-    goToQuest();
-    return;
-  }
-
   // Tìm và click button Log in/Sign up with
   const loginButton = Array.from(document.querySelectorAll('button')).find(btn => {
     return btn.textContent?.includes('Log in/Sign up with') && 
             btn.classList.contains('welcome-hero-login-button');
   });
+
+  if (!action && window.location.href === 'https://testnet.lifeai.io/vi' && !loginButton) {
+    console.log('[LifeAI] No action on home, navigating to quests...');
+    isScanning = false;
+    goToQuest();
+    return;
+  }
 
   if (action === 'login' && !loginButton) {
     console.log('[LifeAI] login Success...');
