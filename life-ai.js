@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      v1.9
+// @version      v1.10
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
@@ -282,14 +282,8 @@
 
       if (continueButton && !continueButton.disabled) {
         continueButton.click();
-        setInterval(() => {
-          const cButton = Array.from(document.querySelectorAll('button')).find(btn => {
-            return btn.textContent?.trim() === 'Continue';
-          });
-          if (!cButton) {
-            goToQuest();
-          }
-        }, 1000);
+        await sleep(10000);
+        goToQuest();
       }
 
       isScanning = false;
