@@ -1,4 +1,15 @@
+/*
+(async () => {
+    const url = "https://raw.githubusercontent.com/vinhlv/tampermonkey-script/main/life-ai.js";
 
+    const res = await fetch(url);
+    const code = await res.text();
+
+    const script = document.createElement("script");
+    script.textContent = code;
+    document.documentElement.appendChild(script);
+})();
+*/
 let isScanning = false;
 
 function setAction(value) {
