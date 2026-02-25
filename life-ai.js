@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      v1.6
+// @version      v1.7
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
