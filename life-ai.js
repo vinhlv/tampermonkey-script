@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      v1.10
+// @version      v1.11
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
@@ -193,6 +193,7 @@
         if (stakeButton && !stakeButton.disabled) {
           unsafeWindow.console.log('[LifeAI] Found STAKE button, clicking...');
           stakeButton.click();
+          await sleep(5000);
         }
         setAction('');
         goToQuest();
