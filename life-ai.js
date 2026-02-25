@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         LifeAI
 // @namespace    http://tampermonkey.net/
-// @version      v1.3
+// @version      v1.4
 // @updateURL    https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @downloadURL  https://raw.githubusercontent.com/vinhlv/tampermonkey-script/refs/heads/main/life-ai.js
 // @description  try to take over the world!
@@ -83,6 +83,13 @@
       if (isScanning) return;
       isScanning = true;
 
+      if (!action && window.location.href === 'https://testnet.lifeai.io/vi') {
+        unsafeWindow.console.log('[LifeAI] No action on home, navigating to quests...');
+        isScanning = false;
+        goToQuest();
+        return;
+      }
+
       // Tìm và click button Log in/Sign up with
       const loginButton = Array.from(document.querySelectorAll('button')).find(btn => {
         return btn.textContent?.includes('Log in/Sign up with') && 
@@ -101,14 +108,12 @@
         loginButton.click();
         setAction('login');
         
-        // Chờ 500ms rồi tìm button login method
-        await sleep(500);
+        await sleep(1000);
         const loginMethodButton = document.querySelector('.login-method-button');
         if (loginMethodButton) {
           unsafeWindow.console.log('[LifeAI] Found login method button, clicking...');
           loginMethodButton.click();
         }
-        
       }
 
       // Tìm và click button Reward
