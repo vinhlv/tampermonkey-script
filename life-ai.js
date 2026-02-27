@@ -192,7 +192,7 @@ async function scanDom() {
       stakeButton.click();
       await sleep(5000);
     }
-    setAction('');
+    setAction();
     goToQuest();
   }
 
@@ -281,6 +281,7 @@ async function scanDom() {
   if (continueButton && !continueButton.disabled) {
     continueButton.click();
     await sleep(10000);
+    setAction('');
     goToQuest();
   }
 
