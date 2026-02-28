@@ -76,8 +76,6 @@ function checkHaveStakeToken() {
 async function scanDom() {
   const action = getAction();
   console.log('[LifeAI] Action:', action, 'isScanning:', isScanning);
-  if (isScanning) return;
-  isScanning = true;
 
   // Tìm và click button Log in/Sign up with
   const loginButton = Array.from(document.querySelectorAll('button')).find(btn => {
@@ -86,8 +84,6 @@ async function scanDom() {
   });
 
   if (!action && window.location.href === 'https://testnet.lifeai.io/vi' && !loginButton) {
-    console.log('[LifeAI] No action on home, navigating to quests...');
-    isScanning = false;
     goToQuest();
     return;
   }
@@ -100,14 +96,12 @@ async function scanDom() {
   }
   
   if (loginButton) {
-    console.log('[LifeAI] Found Log in/Sign up button, clicking...');
     loginButton.click();
     setAction('login');
     
     await sleep(1000);
     const loginMethodButton = document.querySelector('.login-method-button');
     if (loginMethodButton) {
-      console.log('[LifeAI] Found login method button, clicking...');
       loginMethodButton.click();
     }
   }
@@ -115,9 +109,12 @@ async function scanDom() {
   // Tìm và click button Reward
   const rewardButton = Array.from(document.querySelectorAll('button')).find(btn => {
     const spanText = btn.querySelector('span')?.textContent?.trim();
-    return spanText === 'Reward' && btn.classList.contains('border-[#4ADE80]') && btn.classList.contains('red-reward');
+    const hasRedDot = !!btn.querySelector(
+      'span.absolute.-top-1.-right-1.w-2\.5.h-2\.5.bg-\\[\\#EF4444\\].rounded-full.animate-pulse'
+    );
+    return spanText === 'Reward' && btn.classList.contains('border-[#4ADE80]') && btn.classList.contains('red-reward') && hasRedDot;
   });
-  if (action === 'claim' && rewardButton) {
+  if (rewardButton) {
     console.log('[LifeAI] Found Reward button with red-reward class, clicking...');
     rewardButton.click();
     
@@ -149,8 +146,6 @@ async function scanDom() {
             clickCloseButton();
             await sleep(1000);
             goToQuest();
-          } else {
-            console.log('Claim All button not found or disabled, navigating to quests');
           }
         } else {
           clickCloseButton();
@@ -284,11 +279,7 @@ async function scanDom() {
     setAction('');
     goToQuest();
   }
-
-  isScanning = false;
-}
-
-async function scheduleScan() {
+  await sleep(3000);
   await scanDom();
 }
-setInterval(() => scheduleScan(), 3000);
+scanDom();
