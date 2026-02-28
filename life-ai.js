@@ -108,7 +108,7 @@ async function scanDom() {
   // Tìm và click button Reward
   const rewardButton = Array.from(document.querySelectorAll('button')).find(btn => {
     const spanText = btn.querySelector('span')?.textContent?.trim();
-    const hasRedDot = !!btn.querySelector('span.absolute.animate-pulse');
+    const hasRedDot = btn.querySelector('span.absolute.animate-pulse');
     return spanText === 'Reward' && btn.classList.contains('border-[#4ADE80]') && hasRedDot;
   });
   console.log('[LifeAI] Scanning for Reward button with red-reward class...', rewardButton);
