@@ -75,7 +75,6 @@ function checkHaveStakeToken() {
 
 async function scanDom() {
   const action = getAction();
-  console.log('[LifeAI] Action:', action, 'isScanning:', isScanning);
 
   // Tìm và click button Log in/Sign up with
   const loginButton = Array.from(document.querySelectorAll('button')).find(btn => {
@@ -112,6 +111,7 @@ async function scanDom() {
     const hasRedDot = !!btn.querySelector('span.absolute.animate-pulse');
     return spanText === 'Reward' && btn.classList.contains('border-[#4ADE80]') && btn.classList.contains('red-reward') && hasRedDot;
   });
+  console.log('[LifeAI] Scanning for Reward button with red-reward class...', rewardButton);
   if (rewardButton) {
     console.log('[LifeAI] Found Reward button with red-reward class, clicking...');
     rewardButton.click();
