@@ -163,7 +163,7 @@ async function scanDom() {
   }
 
   if (action === 'stake') {
-    await sleep(3000);
+    await sleep(5000);
     
     const maxButton = Array.from(document.querySelectorAll('button')).find(btn => {
       return btn.textContent?.trim() === 'Max'
