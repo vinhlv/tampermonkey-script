@@ -37,13 +37,23 @@ function startClick() {
 
 }
 
-function startClick2() {
-  fetch('http://localhost:5000/api/double-click', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ x: 172, y: 731 })
-  });
+function clickCanvas(xRatio = 0.5, yRatio = 0.5) {
+    const canvas = document.querySelector('#home-canvas-container canvas');
+    if (!canvas) return;
 
+    const rect = canvas.getBoundingClientRect();
+    const x = rect.left + rect.width * xRatio;
+    const y = rect.top + rect.height * yRatio;
+    ["pointerdown", "mousedown"].forEach(type => canvas.dispatchEvent(new MouseEvent(type, {
+        clientX: x,
+        clientY: y,
+        bubbles: true
+    })));
+    ["pointerup", "mouseup", "click"].forEach(type => canvas.dispatchEvent(new MouseEvent(type, {
+        clientX: x,
+        clientY: y,
+        bubbles: true
+    })));
 }
 
 /* ================= CANVAS CHECK ================= */
@@ -65,7 +75,11 @@ function checkStartClick() {
       children[0].children[0].tagName === "CANVAS"
   ) {
       isClick = true;
-      setTimeout(() => startAutoClick(), 3000);
+      const clickInterval = setInterval(() => clickCanvas(), 100);
+      setTimeout(() => {
+        clearInterval(clickInterval);
+        isClick = false;
+      }, 6000);
   }
 }
 
@@ -98,7 +112,7 @@ function processDomChanges() {
       if (handledButtons.has(btn)) return;
       handledButtons.add(btn);
 
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         clickCount++;
         console.log('Click count:', clickCount);
         
@@ -106,10 +120,15 @@ function processDomChanges() {
           setTimeout(() => location.reload(), 1000);
           return;
         }
-        
-        setTimeout(() => startClick(), 2000);
-        setTimeout(() => startClick2(), 3000);
-        setTimeout(() => startAutoClick(), 20000);
+        await delay(2000);
+        clickCanvas(0.4, 0.6);
+        await delay(2000);
+        isClick = true;
+        const clickInterval = setInterval(() => clickCanvas(), 100);
+        setTimeout(() => {
+          clearInterval(clickInterval);
+          isClick = false;
+        }, 6000);
       });
 
       // auto mode
