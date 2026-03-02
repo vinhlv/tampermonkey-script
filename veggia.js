@@ -10,7 +10,6 @@
     document.documentElement.appendChild(script);
 })();
 */
-let isAuto = localStorage.getItem('veggia_auto_mode') === 'true';
 let isClick = false;
 let clickCount = 0;
 const handledButtons = new WeakSet();
@@ -73,6 +72,7 @@ function checkStartClick() {
 
 async function processDomChanges() {
     document.querySelectorAll("button")[6]?.click();
+    clickCount++;
     /* ---- Continue ---- */
     const continueButtons = [...document.querySelectorAll("button")]
       .filter(b => /continue/i.test(b.innerText));
@@ -92,51 +92,31 @@ async function processDomChanges() {
     });
 
     /* ---- OPEN SUPER CAPS ---- */
-    const openButtons = [...document.querySelectorAll("button")]
-      .filter(b => b.textContent.trim() === "OPEN SUPER CAPS");
+    const openButtons = [...document.querySelectorAll("button")].filter(b => b.textContent.trim() === "OPEN SUPER CAPS");
     openButtons.forEach(btn => {
       if (handledButtons.has(btn)) return;
       handledButtons.add(btn);
 
       btn.addEventListener("click", async () => {
-          clickCount++;
-          console.log('Click count:', clickCount);
-/*
-          if (clickCount >= 6) {
-              setTimeout(() => location.reload(), 1000);
-              return;
-          }
-*/
-          await delay(2000);
-          clickCanvas(0.4, 0.6);
-          await delay(4000);
-          isClick = true;
-          const clickInterval = setInterval(() => clickCanvas(), 100);
-          setTimeout(() => {
-              clearInterval(clickInterval);
-              isClick = false;
-          }, 6000);
+        await delay(2000);
+        clickCanvas(0.4, 0.6);
+        await delay(4000);
+        isClick = true;
+        const clickInterval = setInterval(() => clickCanvas(), 100);
+        clickCount = 0;
+        setTimeout(() => {
+            clearInterval(clickInterval);
+            isClick = false;
+        }, 6000);
       });
 
-      // auto mode
-      if (isAuto) {
-        setTimeout(() => btn.click(), 2000);
-      }
+      setTimeout(() => btn.click(), 2000);
     });
 
-    /* ---- IMG ---- */
-    const imgs = [...document.querySelectorAll(
-      'img[src="/animated-images/super-caps.png?v=27"]'
-    )];
-    imgs.forEach(img => {
-      if (handledImages.has(img)) return;
-      handledImages.add(img);
-      img.addEventListener("click", () => {
-        isAuto = true;
-        localStorage.setItem('veggia_auto_mode', 'true');
-      });
-    });
-    console.log("DOM changes processed. Auto mode:", isAuto);
+    if (clickCount > 90) {
+        setTimeout(() => location.reload(), 1000);
+        return;
+    }
     checkStartClick();
     await delay(2000);
     await processDomChanges();
