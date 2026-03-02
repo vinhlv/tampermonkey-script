@@ -265,6 +265,46 @@ async function scanDom() {
         break;
       }
     }
+    if (title && title.textContent?.includes('Quiz Participation')) {
+      const doTaskButton = taskDiv.querySelector('button');
+      if (doTaskButton && doTaskButton.textContent?.trim() === 'DO TASK') {
+        doTaskButton.click();
+        await sleep(3000);
+        
+        const quizDiv = document.querySelector('div.space-y-3');
+        if (quizDiv) {
+          const firstButton = quizDiv.querySelector('button');
+          if (firstButton) {
+            const buttonText = firstButton.textContent?.trim();
+            console.log('[LifeAI] Quiz button text:', buttonText);
+            firstButton.click();
+            await sleep(1000);
+            
+            // Tìm và điền vào textarea
+            const textarea = document.querySelector('textarea[placeholder*="Share your thoughts"]');
+            if (textarea) {
+              setInputValue(textarea, buttonText);
+              console.log('[LifeAI] Filled textarea with:', buttonText);
+              await sleep(1000);
+              
+              // Tìm và click button Submit Answer
+              const submitButton = Array.from(document.querySelectorAll('button')).find(btn => {
+                return btn.textContent?.trim() === 'Submit Answer' && 
+                       btn.classList.contains('bg-life-6');
+              });
+              
+              if (submitButton && !submitButton.disabled) {
+                console.log('[LifeAI] Found Submit Answer button, clicking...');
+                submitButton.click();
+                await sleep(2000);
+              }
+            }
+          }
+        }
+        
+        break;
+      }
+    }
   }
 
   const continueButton = Array.from(document.querySelectorAll('button')).find(btn => {
