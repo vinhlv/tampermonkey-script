@@ -296,7 +296,8 @@ async function scanDom() {
               if (submitButton && !submitButton.disabled) {
                 console.log('[LifeAI] Found Submit Answer button, clicking...');
                 submitButton.click();
-                await sleep(2000);
+                await sleep(10000);
+                goToQuest();
               }
             }
           }
