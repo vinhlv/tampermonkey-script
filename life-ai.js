@@ -289,7 +289,7 @@ async function scanDom() {
               
               // Tìm và click button Submit Answer
               const submitButton = Array.from(document.querySelectorAll('button')).find(btn => {
-                return btn.textContent?.trim() === 'Submit Answer' ||| btn.textContent?.trim() === 'Submit On-Chain';
+                return btn.textContent?.trim() === 'Submit Answer' || btn.textContent?.trim() === 'Submit On-Chain';
               });
               
               if (submitButton && !submitButton.disabled) {
