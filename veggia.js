@@ -16,39 +16,25 @@ let clickCount = 0;
 const handledButtons = new WeakSet();
 const handledImages = new WeakSet();
 
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 /* ================= API CALLS ================= */
-
-function startAutoClick() {
-  fetch('http://localhost:5000/api/start-click', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ x: 207, y: 620, interval: 0 })
-  });
-
-  setTimeout(() => { isClick = false; }, 4000);
-}
-
-function startClick() {
-  fetch('http://localhost:5000/api/double-click', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ x: 207, y: 640 })
-  });
-
-}
 
 function clickCanvas(xRatio = 0.5, yRatio = 0.5) {
     const canvas = document.querySelector('#home-canvas-container canvas');
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
+
     const x = rect.left + rect.width * xRatio;
     const y = rect.top + rect.height * yRatio;
+
     ["pointerdown", "mousedown"].forEach(type => canvas.dispatchEvent(new MouseEvent(type, {
         clientX: x,
         clientY: y,
         bubbles: true
     })));
+
     ["pointerup", "mouseup", "click"].forEach(type => canvas.dispatchEvent(new MouseEvent(type, {
         clientX: x,
         clientY: y,
@@ -77,15 +63,15 @@ function checkStartClick() {
       isClick = true;
       const clickInterval = setInterval(() => clickCanvas(), 100);
       setTimeout(() => {
-        clearInterval(clickInterval);
-        isClick = false;
+          clearInterval(clickInterval);
+          isClick = false;
       }, 6000);
   }
 }
 
 /* ================= DOM OBSERVER ================= */
 
-function processDomChanges() {
+async function processDomChanges() {
     document.querySelectorAll("button")[6]?.click();
     /* ---- Continue ---- */
     const continueButtons = [...document.querySelectorAll("button")]
@@ -113,22 +99,23 @@ function processDomChanges() {
       handledButtons.add(btn);
 
       btn.addEventListener("click", async () => {
-        clickCount++;
-        console.log('Click count:', clickCount);
-        
-        if (clickCount >= 6) {
-          setTimeout(() => location.reload(), 1000);
-          return;
-        }
-        await delay(2000);
-        clickCanvas(0.4, 0.6);
-        await delay(2000);
-        isClick = true;
-        const clickInterval = setInterval(() => clickCanvas(), 100);
-        setTimeout(() => {
-          clearInterval(clickInterval);
-          isClick = false;
-        }, 6000);
+          clickCount++;
+          console.log('Click count:', clickCount);
+/*
+          if (clickCount >= 6) {
+              setTimeout(() => location.reload(), 1000);
+              return;
+          }
+*/
+          await delay(2000);
+          clickCanvas(0.4, 0.6);
+          await delay(4000);
+          isClick = true;
+          const clickInterval = setInterval(() => clickCanvas(), 100);
+          setTimeout(() => {
+              clearInterval(clickInterval);
+              isClick = false;
+          }, 6000);
       });
 
       // auto mode
@@ -151,16 +138,11 @@ function processDomChanges() {
     });
     console.log("DOM changes processed. Auto mode:", isAuto);
     checkStartClick();
+    await delay(2000);
+    await processDomChanges();
 }
 
-const observer = new MutationObserver(processDomChanges);
-
-/* ================= START OBSERVE ================= */
-
-observer.observe(document.body, {
-    childList: true,
-    subtree: true
-});
+processDomChanges();
 
 
 /*
