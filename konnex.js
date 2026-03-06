@@ -28,7 +28,7 @@ async function scanDom() {
     return link.textContent?.trim() === 'Sign Up';
   });
 
-  if (signUpLink) {
+  if (signUpLink && !isClickTrain) {
     console.log('[Konnex] Found Sign Up link, clicking...');
     signUpLink.click();
     isClickTrain = true;
