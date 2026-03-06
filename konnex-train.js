@@ -13,7 +13,11 @@
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-
+function setInputValue(element, value) {
+    const setter = Object.getOwnPropertyDescriptor(element.__proto__,'value').set;
+    setter.call(element, value);
+    element.dispatchEvent(new Event('input', { bubbles: true }));
+}
 
 async function scanDom() {
   // Lấy địa chỉ ví từ URL
@@ -27,15 +31,10 @@ async function scanDom() {
 
   const walletInput = document.querySelector('input[placeholder="Wallet"]');
   
-  if (walletInput && walletAddress && !walletInput.value) {
+  if (walletInput && walletAddress) {
     console.log('[Konnex] Found Wallet input, filling with:', walletAddress);
-    walletInput.value = walletAddress;
-    
-    // Trigger events để React/Vue nhận được thay đổi
-    walletInput.dispatchEvent(new Event('input', { bubbles: true }));
-    walletInput.dispatchEvent(new Event('change', { bubbles: true }));
-    
-    await sleep(1000);
+    setInputValue(walletInput, walletAddress);    
+    await sleep(3000);
   }
 
   if (submitButton && !submitButton.disabled) {
