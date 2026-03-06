@@ -10,7 +10,7 @@
     document.documentElement.appendChild(script);
 })();
 */
-
+let isClickTrain = false;
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function scanDom() {
@@ -31,6 +31,7 @@ async function scanDom() {
   if (signUpLink) {
     console.log('[Konnex] Found Sign Up link, clicking...');
     signUpLink.click();
+    isClickTrain = true;
   }
 
   await sleep(3000);
