@@ -11,14 +11,18 @@
 })();
 */
 let isClickTrain = false;
+let isScrollDown = false;
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function scanDom() {
-  window.scrollTo({
-    top: document.documentElement.scrollHeight,
-    left: 0,
-    behavior: "smooth",
-  });
+  if (!isScrollDown) {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      left: 0,
+      behavior: "smooth",
+    });
+    isScrollDown = true;
+  }
   const checkInButton = Array.from(document.querySelectorAll('button')).find(btn => {
     return btn.textContent?.trim() === 'Check in';
   });
