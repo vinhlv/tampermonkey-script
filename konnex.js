@@ -14,6 +14,11 @@ let isClickTrain = false;
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function scanDom() {
+  window.scrollTo({
+    top: document.documentElement.scrollHeight,
+    left: 0,
+    behavior: "smooth",
+  });
   const checkInButton = Array.from(document.querySelectorAll('button')).find(btn => {
     return btn.textContent?.trim() === 'Check in';
   });
@@ -32,6 +37,9 @@ async function scanDom() {
     console.log('[Konnex] Found Sign Up link, clicking...');
     signUpLink.click();
     isClickTrain = true;
+    await sleep(20000);
+    location.reload();
+    return;
   }
 
   await sleep(3000);
