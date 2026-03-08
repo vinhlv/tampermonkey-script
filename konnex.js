@@ -24,6 +24,15 @@ async function scanDom() {
     });
     isScrollDown = true;
   }
+  const claimButton = Array.from(document.querySelectorAll('button')).find(btn => {
+    return btn.textContent?.trim() === 'Claim';
+  });
+
+  if (claimButton && !claimButton.disabled) {
+    console.log('[Konnex] Found Claim button, clicking...');
+    claimButton.click();
+    await sleep(5000);
+  }
   const checkInButton = Array.from(document.querySelectorAll('button')).find(btn => {
     return btn.textContent?.trim() === 'Check in';
   });
