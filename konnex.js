@@ -24,11 +24,12 @@ async function scanDom() {
     });
     isScrollDown = true;
   }
-  const claimButton = Array.from(document.querySelectorAll('button')).find(btn => {
-    return btn.textContent?.trim() === 'Claim';
-  });
+  const claimButton = document.querySelector('a[action="ClaimReward"]') || 
+    Array.from(document.querySelectorAll('a')).find(link => {
+      return link.textContent?.trim() === 'Claim' && link.getAttribute('action') === 'ClaimReward';
+    });
 
-  if (claimButton && !claimButton.disabled) {
+  if (claimButton && !claimButton.hasAttribute('aria-disabled')) {
     console.log('[Konnex] Found Claim button, clicking...');
     claimButton.click();
     await sleep(5000);
