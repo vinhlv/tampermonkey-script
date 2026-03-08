@@ -29,7 +29,7 @@ async function scanDom() {
       return link.textContent?.trim() === 'Claim' && link.getAttribute('action') === 'ClaimReward';
     });
 
-  if (claimButton) {
+  if (claimButton && !claimButton.hasAttribute('disabled')) {
     console.log('[Konnex] Found Claim button, clicking...');
     claimButton.click();
     await sleep(5000);
