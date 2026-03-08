@@ -16,6 +16,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function scanDom() {
   if (!isScrollDown) {
+    await sleep(5000);
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       left: 0,
@@ -46,7 +47,7 @@ async function scanDom() {
     return;
   }
 
-  await sleep(3000);
+  await sleep(1000);
   await scanDom();
 }
 scanDom();
