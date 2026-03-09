@@ -21,6 +21,7 @@ function setInputValue(element, value) {
 
 async function scanDom() {
   // Lấy địa chỉ ví từ URL
+  await sleep(2000);
   const urlParams = new URLSearchParams(window.location.search);
   const walletAddress = urlParams.get('walletAddress');
   console.log('[Konnex] Wallet Address:', walletAddress);
@@ -46,17 +47,23 @@ async function scanDom() {
     return btn.textContent?.trim() === 'Submit Feedback';
   });
 
+  const doneButton = Array.from(document.querySelectorAll('button')).find(btn => {
+    return btn.textContent?.includes('Done');
+  });
+
   if (submitFeedbackButton && !submitFeedbackButton.disabled) {
     console.log('[Konnex] Found Submit Feedback button, clicking...');
     submitFeedbackButton.click();
-    
-    await sleep(10000);
-    console.log('[Konnex] Closing window...');
+  }
+
+  if (doneButton) {
+    console.log('[Konnex] Found Done button, closing window...');
     window.close();
     return;
   }
+  
 
-  await sleep(3000);
+  await sleep(1000);
   await scanDom();
 }
 scanDom();
