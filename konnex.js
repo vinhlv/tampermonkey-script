@@ -16,7 +16,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function scanDom() {
   if (!isScrollDown) {
-    await sleep(5000);
+    await sleep(4000);
     window.scrollTo({
       top: document.documentElement.scrollHeight,
       left: 0,
@@ -24,12 +24,23 @@ async function scanDom() {
     });
     isScrollDown = true;
   }
-  const claimButton = document.querySelector('a[action="ClaimReward"]') || 
-    Array.from(document.querySelectorAll('a')).find(link => {
-      return link.textContent?.trim() === 'Claim' && link.getAttribute('action') === 'ClaimReward';
-    });
+  const connectXContainer = Array.from(document.querySelectorAll('div')).find(div => {
+    return div.textContent?.includes('Connect X');
+  });
 
-  if (claimButton && !claimButton.hasAttribute('disabled')) {
+  const claimButton = connectXContainer
+    ? Array.from(connectXContainer.querySelectorAll('button')).find(btn => {
+      return btn.textContent?.trim() === 'Claim';
+    })
+    : null;
+
+  const isClaimDisabled = !!claimButton && (
+    claimButton.hasAttribute('disabled') ||
+    claimButton.getAttribute('aria-disabled') === 'true' ||
+    claimButton.classList.contains('disabled')
+  );
+
+  if (claimButton && !isClaimDisabled) {
     console.log('[Konnex] Found Claim button, clicking...');
     claimButton.click();
     await sleep(5000);
