@@ -210,6 +210,15 @@ async function scanDom() {
         break;
       }
     }
+    if (title && title.textContent?.includes('Join The Arena')) {
+      const doTaskButton = taskDiv.querySelector('button');
+      if (doTaskButton && doTaskButton.textContent?.trim() === 'DO TASK') {
+        doTaskButton.click();
+        
+        await sleep(2000);
+        break;
+      }
+    }
     if (title && title.textContent?.includes('Comment on X')) {
       const doTaskButton = taskDiv.querySelector('button');
       if (doTaskButton && doTaskButton.textContent?.trim() === 'DO TASK') {
