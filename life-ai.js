@@ -62,11 +62,12 @@ function checkHaveStakeToken() {
             btn.classList.contains('hover:cursor-pointer');
   });
   if (assetsButton) {
-    const buttonText = assetsButton.textContent?.trim() || 'No text found';
-    console.log('[LifeAI] Assets button text: ' + buttonText);
-    
-    const commaCount = (buttonText.match(/,/g) || []).length;        
-    return commaCount === 2;
+    const logoImg = assetsButton.querySelector('img[src*="logo"]');
+    const text = logoImg?.parentElement?.textContent?.trim() || '';
+    const match = text.match(/[\d,]+(?:\.\d+)?/);
+    const logoValue = match ? parseFloat(match[0].replace(/,/g, '')) : 0;
+    console.log('[LifeAI] Logo value: ' + logoValue);
+    return logoValue > 0;
   } else {
     console.log('[LifeAI] Assets button not found');
     return false;
